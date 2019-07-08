@@ -25,6 +25,7 @@ class Graph:
         Add a directed edge to the graph.
         """
         #pass  # TODO
+
     def bft(self, starting_vertex):
         #keep track of all visited nodes
         explored = []
@@ -48,15 +49,78 @@ class Graph:
         return explored
 
         """
+        BFT
+        
+        # Create an empty STACK and push the starting vertex ID
+        # Create a set to store visited vertices
+            # While the queue is not empty...
+                # POP the firxt vertex
+                # if that vertex has not been visted ...
+                    # Mark it as visted ...
+                    # Then PUSH all of its neighbors to the back of the Queue
+
         Print each vertex in breadth-first order
         beginning from starting_vertex.
+        #create an empty queue and enqueue the starting vertex ID
+        q = Queue()
+
+        #create a set to store visited vertices
+        visited = set()
+
+        #while the queue is not empty...
+        while queue.size() > 0:
+            #dequeue the first vertex
+            vertex = queue.dequeue()
+
+            #if the vertex has not been visited...
+            if vertext not in visited:
+                print(vertext)
+
+                #mark it as visited ... you can just use the .add syntax for sets, very useful!
+                visited.add(vertex)
+
+                #then add all of its neighbors to the back of the queue
+                for neighbors in self.vertices(v):
+                    queue.enqueue(neighbor)
+
         """
         #pass  # TODO
 
     def dft(self, starting_vertex):
+        #create an empty stack and push the starting vertex ID
+        stack = Stack()
+        stack.push(starting_vertex)
+
+        #create a set to store visited vertices
+        visted = set()
+
+        #while the queue is not empty...
+        while stack.size() > 0:
+
+            #pop the first vertex
+            vertex = stack.pop()
+            #print(vertex)
+
+            #if vertex has not been visited ...
+            if vertex not in visited:
+                #Mark it as visited ...
+                #Then push all of its neighbors to the back of the stack
+                for neighbor in self.vertices[vertex]:
+                    stack.push(neighbor)
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
+
+        # DFS
+        # Create an empty STACK and push the starting vertex ID
+        # Create a set to store visited vertices
+            # While the queue is not empty...
+                # POP the firxt vertex
+                # if that vertex has not been visted ...
+                    # Mark it as visted ...
+                    # Then PUSH all of its neighbors to the back of the STACK
+
+
         """
         #pass  # TODO
 
