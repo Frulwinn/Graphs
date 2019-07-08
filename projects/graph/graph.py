@@ -9,14 +9,14 @@ class Graph:
         self.vertices = {}
 
     def add_vertex(self, vertex):
-        self.vertices[vertext] = set()
+        self.vertices[vertex] = set()
         """
         Add a vertex to the graph.
         """
         #pass  # TODO
 
     def add_edge(self, v1, v2):
-        if v1 in self.vertices and v2 in self.vertices
+        if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         
         else:
@@ -39,25 +39,27 @@ class Graph:
             if node not in explored:
                 #add node to list of checked nodes
                 explored.append(node)
-                neighbours = graph[node]
+                neighbours = starting_vertex[node]
 
                 #add neighbourgs of node to queue
                 for neighbour in neighbours:
                     queue.append(neighbour)
-                    
+
         return explored
 
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        #pass  # TODO
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        #pass  # TODO
+
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -65,6 +67,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -72,6 +75,7 @@ class Graph:
         breath-first order.
         """
         pass  # TODO
+
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
