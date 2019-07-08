@@ -92,7 +92,7 @@ class Graph:
         stack.push(starting_vertex)
 
         #create a set to store visited vertices
-        visted = set()
+        visited = set()
 
         #while the queue is not empty...
         while stack.size() > 0:
@@ -111,7 +111,7 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
-        # DFS
+        # DFT
         # Create an empty STACK and push the starting vertex ID
         # Create a set to store visited vertices
             # While the queue is not empty...
@@ -125,6 +125,18 @@ class Graph:
         #pass  # TODO
 
     def dft_recursive(self, starting_vertex):
+        stack = [starting_vertex]
+        path = []
+
+        while stack:
+            vertex = stack.pop()
+            if vertex in path:
+                continue
+            path.append(vertex)
+
+            for neighbor in self.vertices[vertex]:
+                stack.append(neighbor) 
+
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
