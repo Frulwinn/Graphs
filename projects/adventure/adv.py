@@ -31,8 +31,41 @@ player = Player("Name", world.startingRoom)
 # 0: {'n': '?', 's': 5, 'w': '?', 'e': '?'}, 
 # 5: {'n': 0, 's': '?', 'e': '?'}
 #You know you are done when you have exactly 500 entries (0-499) in your graph and no '?'
-traversalPath = []
 
+#need graph class
+class Graph:
+    """Represent a graph as a dictionary of vertices mapping labels to edges."""
+    def __init__(self):
+        self.vertices = {}
+    def add_vertex(self, vertex_id):
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
+    def add_edge(self, v1, v2):
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise IndexError("That vertex does not exist!")
+
+#need stack class
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, value):
+        self.stack.append(value)
+
+    def size(self):
+        return len(self.stack)
+
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop(-1)
+        else:
+            return 0
+
+traversalPath = []
+def dft(self, starting_vertex):
+    pass
 
 
 # TRAVERSAL TEST
