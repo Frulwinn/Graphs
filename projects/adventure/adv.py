@@ -21,32 +21,23 @@ world.printRooms()
 
 player = Player("Name", world.startingRoom)
 
-# Fill this out
-#An incomplete list of directions. 
-#Your task is to fill this with valid traversal directions.
-#dft traverse all rooms not looking for shortest path
-#starting room 0 which contains exits n, s, w, e
-#starting graph should look something like 0: {'n': '?', 's': '?', 'w': '?', 'e': '?'
-# if you move south you will find room 5 n, s, e, looks like 
-# 0: {'n': '?', 's': 5, 'w': '?', 'e': '?'}, 
-# 5: {'n': 0, 's': '?', 'e': '?'}
-#You know you are done when you have exactly 500 entries (0-499) in your graph and no '?'
-
-#need graph class
+#might need graph class
 class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
+
     def add_vertex(self, vertex_id):
         if vertex_id not in self.vertices:
             self.vertices[vertex_id] = set()
+
     def add_edge(self, v1, v2):
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
             raise IndexError("That vertex does not exist!")
 
-#need stack class
+#might need stack class
 class Stack:
     def __init__(self):
         self.stack = []
@@ -63,10 +54,40 @@ class Stack:
         else:
             return 0
 
-traversalPath = []
-def dft(self, starting_vertex):
-    pass
+#might need a queue
+class Queue:
+    def __init__(self):
+        self.storage = []
+        self.size = 0
 
+     def enqueue(self, value):
+        self.size += 1
+        self.storage.append(value)
+
+     def dequeue(self):
+        if len(self.storage) > 0:
+            self.size -= 1
+            return self.storage.pop(0)
+        else:
+            return None
+            
+
+traversalPath = []
+#keep track of visited
+visited = {}
+visited[player.currentRoom.id] = player.currentRoom.getExit()
+
+#HINT FROM BRADY
+#for exit in player.currentRoom.getExits():
+    #graph[player.currentRoom.id] = "?"
+
+
+#MY PLAN
+#create a loop to traverse through all the rooms
+#if room visited add to visited
+#get current room and available exits
+#if we hit a dead end traverse back
+#if all rooms have been visited we have traversed all rooms
 
 # TRAVERSAL TEST
 visited_rooms = set()
