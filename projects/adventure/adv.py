@@ -22,6 +22,15 @@ world.printRooms()
 player = Player("Name", world.startingRoom)
 
 # Fill this out
+#An incomplete list of directions. 
+#Your task is to fill this with valid traversal directions.
+#dft traverse all rooms not looking for shortest path
+#starting room 0 which contains exits n, s, w, e
+#starting graph should look something like 0: {'n': '?', 's': '?', 'w': '?', 'e': '?'
+# if you move south you will find room 5 n, s, e, looks like 
+# 0: {'n': '?', 's': 5, 'w': '?', 'e': '?'}, 
+# 5: {'n': 0, 's': '?', 'e': '?'}
+#You know you are done when you have exactly 500 entries (0-499) in your graph and no '?'
 traversalPath = []
 
 
