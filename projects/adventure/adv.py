@@ -101,7 +101,7 @@ def traverseGraph(visited, startingRoom):
     while queue.size() > 0:
         path = queue.dequeue()
         #get the last room from our path
-        current_room = path
+        current_room = path[-1]
 
         #check if last room has not been visited
         if current_room not in visited_rooms:
@@ -109,8 +109,21 @@ def traverseGraph(visited, startingRoom):
             visited_rooms.add(current_room)
 
 
-#get current room and available exits
+        #get current room and available/unexplored exits
+        for exit in traversalGraph[current_room]:
+            if traversalGraph[current_room][exit] == '?':
+                return path
+
+        #enqueue the paths to each of its exits
+        for exit in traversalGraph[current_room]:
+            rooms.append(exit)
+            next_room = traversalGraph[current_room][exit]
+            path_copy = path.copy()
+            path_copy.append(next_room)
+            queue.enqueue(path_copy)
+
 #if we hit a dead end traverse back
+
 #if all rooms have been visited we have traversed all rooms
 
 # TRAVERSAL TEST
