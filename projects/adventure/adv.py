@@ -71,22 +71,24 @@ class Queue():
     def size(self):
         return len(self.queue)
 
-traversalPath = []
-traversalGraph = {}
-
-#keep track of visited
-visited = {}
-visited[player.currentRoom.id] = player.currentRoom.getExits()
-print(player.currentRoom.id)
-print(player.currentRoom.getExits())
+#You are responsible for filling traversalPath with directions that, when walked in order, will visit every room on the map at least once
 
 #HINT FROM BRADY
 #for exit in player.currentRoom.getExits():
     #graph[player.currentRoom.id] = "?"
 
 #MY PLAN
+traversalPath = []
+traversalGraph = {}
+
+#if we hit a dead end traverse back
+#I think I may still need the ability to reverse direction
+def reverse_direction(direction):
+    dictionary = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
+    return dictionary[direction]
+
 #create a loop to traverse through all the rooms
-def traverseGraph(visited, startingRoom):
+def traverseGraph(traversalGraph, startingRoom):
     #create an empty array to hold rooms
     rooms = []
     
@@ -94,35 +96,89 @@ def traverseGraph(visited, startingRoom):
     queue = Queue()
     queue.enqueue([startingRoom])
     
-    #create empty set to store visited
+    #create empty set to store visited rooms
     visited_rooms = set()
-    
+    #print(visited_rooms)
+
     #while in queue
     while queue.size() > 0:
         path = queue.dequeue()
+        
         #get the last room from our path
         current_room = path[-1]
 
         #check if last room has not been visited
         if current_room not in visited_rooms:
-            #if room visited add to visited
+            #if room visited add to visited rooms set
             visited_rooms.add(current_room)
 
+            #get current room and available/unexplored exits
+            for exit in traversalGraph[current_room]:
+                if traversalGraph[current_room][exit] == "?":
+                    return path
 
-        #get current room and available/unexplored exits
-        for exit in traversalGraph[current_room]:
-            if traversalGraph[current_room][exit] == '?':
-                return path
+            #enqueue the paths to each of its exits
+            for exit in traversalGraph[current_room]:
+                rooms.append(exit)
+                next_room = traversalGraph[current_room][exit]
+                #creating a copy path for each exits and appending exit to the copy
+                path_copy = path.copy()
+                path_copy.append(next_room)
+                queue.enqueue(path_copy)
 
-        #enqueue the paths to each of its exits
-        for exit in traversalGraph[current_room]:
-            rooms.append(exit)
-            next_room = traversalGraph[current_room][exit]
-            path_copy = path.copy()
-            path_copy.append(next_room)
-            queue.enqueue(path_copy)
 
-#if we hit a dead end traverse back
+#the actual while loop that uses the def traverseGraph
+#while length of each graphs aren't equal keep looping till all rooms are visited
+while len(traversalGraph) != len(roomGraph):
+    #set current room
+    current_room = player.currentRoom.id
+
+    #if current room is not in traversal graph it is put in dictionary
+    if current_room not in traversalGraph:
+        traversalGraph[current_room] = {}
+
+        #set room initial exits to "?"
+        for exit in player.currentRoom.getExits():
+            traversalGraph[current_room][exit] = "?"
+            
+    for exit in traversalGraph[current_room]:
+        if exit not in traversalGraph[current_room]:
+            break
+        #check if room exit is equal to "?"
+        if traversalGraph[current_room][exit] == "?":
+            direction = exit
+
+            #change direction to exit "?" and move to new room
+            if direction:
+                traversalPath.append(direction)
+                player.travel(direction)
+                new_room = player.currentRoom.id
+
+                #if room is not in traversal graph put it in dictionary
+                if new_room not in traversalGraph:
+                    traversalGraph[new_room] = {}
+
+                    #player gets exit that is set as "?"
+                    for exit in player.currentRoom.getExits():
+                        traversalGraph[player.currentRoom.id][exit] = "?"
+
+            #set the new room as current room
+            traversalGraph[current_room][direction] = new_room
+            traversalGraph[new_room][reverse_direction(direction)] = current_room
+            current_room = new_room
+
+    #at a deadend do bfs and backtrack
+    paths = traverseGraph(traversalGraph, current_room)
+    if paths:
+        for exit in paths:
+            for room in traversalGraph[current_room]:
+                if traversalGraph[current_room][room] == exit:
+                    traversalPath.append(room)
+                    player.travel(room)
+
+    current_room = player.currentRoom.id
+
+print(traversalGraph)
 
 #if all rooms have been visited we have traversed all rooms
 
