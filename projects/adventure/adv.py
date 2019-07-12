@@ -87,7 +87,7 @@ def reverse_direction(direction):
     dictionary = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}
     return dictionary[direction]
 
-#create a loop to traverse through all the rooms
+#bfs
 def traverseGraph(traversalGraph, startingRoom):
     #create an empty array to hold rooms
     rooms = []
@@ -127,7 +127,7 @@ def traverseGraph(traversalGraph, startingRoom):
                 queue.enqueue(path_copy)
 
 
-#the actual while loop that uses the def traverseGraph
+#the actual while loop that uses the def traverseGraph to back track
 #while length of each graphs aren't equal keep looping till all rooms are visited
 while len(traversalGraph) != len(roomGraph):
     #set current room
