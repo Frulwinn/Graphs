@@ -55,36 +55,60 @@ class Stack:
             return 0
 
 #might need a queue
-class Queue:
+class Queue():
     def __init__(self):
-        self.storage = []
-        self.size = 0
+        self.queue = []
 
-     def enqueue(self, value):
-        self.size += 1
-        self.storage.append(value)
+    def enqueue(self, value):
+        self.queue.append(value)
 
-     def dequeue(self):
-        if len(self.storage) > 0:
-            self.size -= 1
-            return self.storage.pop(0)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
         else:
             return None
-            
+
+    def size(self):
+        return len(self.queue)
 
 traversalPath = []
+traversalGraph = {}
+
 #keep track of visited
 visited = {}
-visited[player.currentRoom.id] = player.currentRoom.getExit()
+visited[player.currentRoom.id] = player.currentRoom.getExits()
+print(player.currentRoom.id)
+print(player.currentRoom.getExits())
 
 #HINT FROM BRADY
 #for exit in player.currentRoom.getExits():
     #graph[player.currentRoom.id] = "?"
 
-
 #MY PLAN
 #create a loop to traverse through all the rooms
-#if room visited add to visited
+def traverseGraph(visited, startingRoom):
+    #create an empty array to hold rooms
+    rooms = []
+    
+    #create queue
+    queue = Queue()
+    queue.enqueue([startingRoom])
+    
+    #create empty set to store visited
+    visited_rooms = set()
+    
+    #while in queue
+    while queue.size() > 0:
+        path = queue.dequeue()
+        #get the last room from our path
+        current_room = path
+
+        #check if last room has not been visited
+        if current_room not in visited_rooms:
+            #if room visited add to visited
+            visited_rooms.add(current_room)
+
+
 #get current room and available exits
 #if we hit a dead end traverse back
 #if all rooms have been visited we have traversed all rooms
